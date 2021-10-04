@@ -1,5 +1,6 @@
 //INFO: fixStdoutFor function from: https://stackoverflow.com/questions/10606814/readline-with-console-log-in-the-background
 let commandManager = null;
+const rdl = require('readline');
 
 class Command {
     constructor(command, usage, description, callback) {
@@ -27,7 +28,7 @@ class CommandManager {
     }
 
     init() {
-        const cli = require('readline').createInterface(this.streamIn, this.streamOut);
+        const cli = rdl.createInterface(this.streamIn, this.streamOut);
         this.fixStdoutFor(cli);
         cli.setPrompt("> ", 2);
         let backmessage;
@@ -49,6 +50,7 @@ class CommandManager {
         cli.prompt();
         this.initializeDefaultCommands();
         this.getAllCommandWithoutAliases();
+
     }
 
     getAllCommandWithoutAliases() {

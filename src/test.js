@@ -1,5 +1,4 @@
-const { commandManager } = require('./index');
+const { CommandManager } = require('./index');
 
-commandManager.createCommandManager(process.stdin, process.stdout);
+CommandManager.createCommandManager(process.stdin, process.stdout);
 
-console.log();
