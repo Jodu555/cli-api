@@ -64,7 +64,7 @@ class CommandManager {
     }
 
     initializeDefaultCommands() {
-        this.registerCommand(new Command('help', 'help', 'Description', (command, args, sender) => {
+        this.registerCommand(new Command('help', 'help', 'The Default help command!', (command, args, sender) => {
             console.log('------------------- HELP -------------------');
             console.log(' ');
             this.getAllCommandWithoutAliases().forEach(command => {
