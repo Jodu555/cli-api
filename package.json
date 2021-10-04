@@ -1,0 +1,21 @@
+{
+  "name": "cli-api",
+  "version": "1.0.0",
+  "description": "A Basic Command Line API with a simple Command System and some nice things!",
+  "main": "index.js",
+  "scripts": {
+      "start": "node src/index.js",
+      "dev": "nodemon src/index.js"
+    },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jodu555/cli-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jodu555/cli-api/issues"
+  },
+  "homepage": "https://github.com/Jodu555/cli-api#readme"
+}
