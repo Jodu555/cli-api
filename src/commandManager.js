@@ -52,7 +52,6 @@ class CommandManager {
         this.getAllCommandWithoutAliases();
 
     }
-
     getAllCommandWithoutAliases() {
         const validIds = [];
         const finalCommands = [];
@@ -64,8 +63,14 @@ class CommandManager {
         });
         return finalCommands;
     }
-
+    clear() {
+        rdl.cursorTo(this.streamOut, 0, 0);
+        rdl.clearScreenDown(this.streamOut);
+    }
     initializeDefaultCommands() {
+        this.registerCommand(new Command(['clear', 'c'], 'clear / c', 'To Clear the Screen', () => {
+            this.clear();
+        }))
         this.registerCommand(new Command('help', 'help', 'The Default help command!', (command, args, sender) => {
             console.log('------------------- HELP -------------------');
             console.log(' ');
@@ -76,7 +81,6 @@ class CommandManager {
             console.log('------------------- HELP -------------------');
         }))
     }
-
     fixStdoutFor(cli) {
         const oldStdout = process.stdout;
         const newStdout = Object.create(oldStdout);
@@ -91,7 +95,6 @@ class CommandManager {
         }
         process.__defineGetter__('stdout', function () { return newStdout; });
     }
-
     registerCommand(command) {
         if (typeof command.command === 'string')
             this.commands.set(command.command.toLowerCase(), command);
