@@ -1,4 +1,5 @@
 //INFO: fixStdoutFor function from: https://stackoverflow.com/questions/10606814/readline-with-console-log-in-the-background
+let commandManager = null;
 
 class Command {
     constructor(command, usage, description, callback) {
@@ -17,7 +18,7 @@ class Command {
     }
 }
 
-class commandManager {
+class CommandManager {
     constructor(streamIn, streamOut) {
         this.streamIn = streamIn;
         this.streamOut = streamOut;
@@ -98,4 +99,13 @@ class commandManager {
     }
 }
 
-module.exports = { commandManager, Command }
+function createCommandManager(stdin, stdout) {
+    this.commandManager = new CommandManager(stdin, stdout);
+    return this.commandManager;
+}
+
+function getCommandManager() {
+    return this.commandManager;
+}
+
+module.exports = { createCommandManager, getCommandManager, Command }
