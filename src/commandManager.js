@@ -50,12 +50,14 @@ class CommandManager {
         this.initializeDefaultCommands();
     }
     removeCommandByID(id) {
-        console.log(id);
+        let rem = false;
         this.commands.forEach((value, key) => {
-            if (value.ID == id)
+            if (value.ID == id) {
+                rem = true;
                 return this.commands.delete(key);
+            }
         });
-        return false;
+        return rem;
     }
     getAllCommandsWithoutAliases() {
         const validIds = [];

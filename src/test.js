@@ -1,7 +1,7 @@
 const { CommandManager } = require('./index');
 
 commandmanager = CommandManager.createCommandManager(process.stdin, process.stdout);
-
+console.log(commandmanager.unregisterCommand('c'));
 class ProgressBar {
     constructor(max) {
         this.max = max;
