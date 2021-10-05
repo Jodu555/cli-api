@@ -26,7 +26,6 @@ class CommandManager {
         this.commands = new Map();
         this.init();
     }
-
     init() {
         const cli = rdl.createInterface(this.streamIn, this.streamOut);
         this.fixStdoutFor(cli);
