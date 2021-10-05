@@ -49,6 +49,13 @@ class CommandManager {
         cli.prompt();
         this.initializeDefaultCommands();
     }
+    removeCommandByID(id) {
+        console.log(id);
+        this.commands.forEach((value, key) => {
+            if (value.ID == id)
+                this.commands.delete(key);
+        });
+    }
     getAllCommandsWithoutAliases() {
         const validIds = [];
         const finalCommands = [];

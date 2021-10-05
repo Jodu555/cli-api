@@ -1,6 +1,6 @@
 const { CommandManager } = require('./index');
 
-CommandManager.createCommandManager(process.stdin, process.stdout);
+commandmanager = CommandManager.createCommandManager(process.stdin, process.stdout);
 
 class ProgressBar {
     constructor(max) {
