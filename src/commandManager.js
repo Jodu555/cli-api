@@ -53,8 +53,9 @@ class CommandManager {
         console.log(id);
         this.commands.forEach((value, key) => {
             if (value.ID == id)
-                this.commands.delete(key);
+                return this.commands.delete(key);
         });
+        return false;
     }
     getAllCommandsWithoutAliases() {
         const validIds = [];
@@ -105,6 +106,11 @@ class CommandManager {
         if (Array.isArray(command.command))
             command.command.forEach(commands => this.commands.set(commands.toLowerCase(), command));
 
+    }
+    unregisterCommand(command) {
+        if (this.commands.get(command).ID)
+            return this.removeCommandByID(this.commands.get(command).ID);
+        return false;
     }
 }
 
