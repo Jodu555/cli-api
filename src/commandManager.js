@@ -1,6 +1,7 @@
 //INFO: fixStdoutFor function from: https://stackoverflow.com/questions/10606814/readline-with-console-log-in-the-background
 let commandManager = null;
 const rdl = require('readline');
+const { isGeneratorObject } = require('util/types');
 
 class Command {
     constructor(command, usage, description, callback) {
@@ -20,19 +21,21 @@ class Command {
 }
 
 class ProgressBar {
-    constructor(max, finishedSymbol = '=', emptySymbol = '-') {
+    constructor(max, autofinish = true, finishedSymbol = '=', emptySymbol = '-') {
         this.max = max;
+        this.autofinish = autofinish;
         this.finishedSymbol = finishedSymbol;
         this.emptySymbol = emptySymbol;
         this.dots = '';
         this.empty = '';
         this.percent = 0;
     }
-
     print(stream) {
         this.stream.write(`\r[${this.dots}${this.empty}] ${this.percent}%`);
     }
     update(val) {
+        if (val >= this.max)
+            return this.clear();
         const left = this.max - val;
         this.dots = this.finishedSymbol.repeat(val);
         this.empty = this.emptySymbol.repeat(left);
@@ -42,6 +45,7 @@ class ProgressBar {
     clear() {
         this.stream.write(`\r\n`);
         console.log('');
+        return true;
     }
 }
 
@@ -152,9 +156,14 @@ class CommandManager {
         return;
     }
     updateProgressBar(name, value) {
-        const bar = this.progressBars.get(name);
-        !bar && console.log('The Bar with ' + name + ' Identifier does not exists!');
-        bar && bar.update(value);
+        if (this.progressBars.has(name)) {
+            const bar = this.progressBars.get(name);
+            bar.update(value);
+            return true;
+        } else {
+            console.log('The Bar with ' + name + ' Identifier does not exists!');
+            return false;
+        }
     }
     finishProgressBar() {
         const bar = this.progressBars.get(name);
