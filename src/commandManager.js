@@ -155,10 +155,11 @@ class CommandManager {
         const bar = this.progressBars.get(name);
         !bar && console.log('The Bar with ' + name + ' Identifier does not exists!');
         bar && bar.update(value);
-        bar.clear();
     }
     finishProgressBar() {
-
+        const bar = this.progressBars.get(name);
+        !bar && console.log('The Bar with ' + name + ' Identifier does not exists!');
+        bar && bar.clear();
     }
 }
 
