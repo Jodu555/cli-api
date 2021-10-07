@@ -5,5 +5,8 @@ commandmanager = createCommandManager(process.stdin, process.stdout);
 commandmanager.registerCommand(new Command(['test', 't'], 'test/t', 'Test Command', () => 'This is a test'));
 
 commandmanager.displayProgressBar('inst_1', new ProgressBar(50));
-commandmanager.updateProgressBar('inst_1', 10)
+commandmanager.updateProgressBar('inst_1', 10);
+setTimeout(() => {
+    commandmanager.updateProgressBar('inst_1', 50);
+}, 900);
 
