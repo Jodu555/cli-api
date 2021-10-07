@@ -32,13 +32,16 @@ class ProgressBar {
     print(stream) {
         this.stream.write(`\r[${this.dots}${this.empty}] ${this.percent}%`);
     }
-
     update(val) {
         const left = this.max - val;
         this.dots = this.finishedSymbol.repeat(val);
         this.empty = this.emptySymbol.repeat(left);
         this.percent += val;
         this.print();
+    }
+    clear() {
+        this.stream.write(`\r\n`);
+        console.log('');
     }
 }
 
@@ -152,6 +155,10 @@ class CommandManager {
         const bar = this.progressBars.get(name);
         !bar && console.log('The Bar with ' + name + ' Identifier does not exists!');
         bar && bar.update(value);
+        bar.clear();
+    }
+    finishProgressBar() {
+
     }
 }
 
