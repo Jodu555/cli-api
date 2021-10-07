@@ -19,11 +19,35 @@ class Command {
     }
 }
 
+class ProgressBar {
+    constructor(max, finishedSymbol = '=', emptySymbol = '-') {
+        this.max = max;
+        this.finishedSymbol = finishedSymbol;
+        this.emptySymbol = emptySymbol;
+        this.dots = '';
+        this.empty = '';
+        this.percent = 0;
+    }
+
+    print(stream) {
+        this.stream.write(`\r[${this.dots}${this.empty}] ${this.percent}%`);
+    }
+
+    update(val) {
+        const left = this.max - val;
+        this.dots = this.finishedSymbol.repeat(val);
+        this.empty = this.emptySymbol.repeat(left);
+        this.percent += val;
+        this.print();
+    }
+}
+
 class CommandManager {
     constructor(streamIn, streamOut) {
         this.streamIn = streamIn;
         this.streamOut = streamOut;
         this.commands = new Map();
+        this.progressBars = new Map();
         this.init();
     }
     init() {
@@ -114,6 +138,21 @@ class CommandManager {
             return this.removeCommandByID(this.commands.get(command).ID);
         return false;
     }
+    displayProgressBar(name, bar) {
+        if (!this.progressBars.has(name)) {
+            bar.stream = this.streamOut;
+            bar.print();
+            this.progressBars.set(name, bar);
+            return;
+        }
+        console.log('A Progress Bar with that identifier already exists!');
+        return;
+    }
+    updateProgressBar(name, value) {
+        const bar = this.progressBars.get(name);
+        !bar && console.log('The Bar with ' + name + ' Identifier does not exists!');
+        bar && bar.update(value);
+    }
 }
 
 function createCommandManager(stdin, stdout) {
@@ -125,4 +164,4 @@ function getCommandManager() {
     return this.commandManager;
 }
 
-module.exports = { createCommandManager, getCommandManager, Command }
+module.exports = { createCommandManager, getCommandManager, Command, ProgressBar }

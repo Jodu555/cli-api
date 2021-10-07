@@ -1,31 +1,7 @@
-// const { CommandManager } = require('./index');
+const { CommandManager } = require('./index');
 
-// commandmanager = CommandManager.createCommandManager(process.stdin, process.stdout);
-// console.log(commandmanager.unregisterCommand('c'));
-class ProgressBar {
-    constructor(max, finishedSymbol = '=', emptySymbol = '-') {
-        this.max = max;
-        this.finishedSymbol = finishedSymbol;
-        this.emptySymbol = emptySymbol;
-        this.dots = '';
-        this.empty = '';
-        this.percent = 0;
-        this.print();
-    }
+commandmanager = CommandManager.createCommandManager(process.stdin, process.stdout);
 
-    print() {
-        process.stdout.write(`\r[${this.dots}${this.empty}] ${this.percent}%`);
-    }
+commandmanager.displayProgressBar('inst_1', new CommandManager.ProgressBar(50));
+commandmanager.updateProgressBar('inst_1', 10)
 
-    update(val) {
-        const left = this.max - val;
-        this.dots = this.finishedSymbol.repeat(val);
-        this.empty = this.emptySymbol.repeat(left);
-        this.percent += val;
-        this.print();
-    }
-}
-
-const bar = new ProgressBar(50);
-
-bar.update(25);
