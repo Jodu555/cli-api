@@ -34,10 +34,11 @@ class ProgressBar {
         this.stream.write(`\r[${this.dots}${this.empty}] ${this.percent}%`);
     }
     update(val) {
+        //Resets the value not adds the particular value!
         const left = this.max - val;
         this.dots = this.finishedSymbol.repeat(val);
         this.empty = this.emptySymbol.repeat(left);
-        this.percent += val;
+        this.percent = val;
         this.print();
         if (val >= this.max)
             return this.clear();
