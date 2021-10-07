@@ -1,7 +1,7 @@
-const { CommandManager } = require('./index');
+const { createCommandManager, ProgressBar, Command } = require('./index');
 
-commandmanager = CommandManager.createCommandManager(process.stdin, process.stdout);
+commandmanager = createCommandManager(process.stdin, process.stdout);
 
-commandmanager.displayProgressBar('inst_1', new CommandManager.ProgressBar(50));
+commandmanager.displayProgressBar('inst_1', new ProgressBar(50));
 commandmanager.updateProgressBar('inst_1', 10)
 
